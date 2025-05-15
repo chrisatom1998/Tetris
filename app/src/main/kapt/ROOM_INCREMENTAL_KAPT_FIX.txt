@@ -1,0 +1,3 @@
+When using Room with Kapt, making sure Room can be processed incrementally is necessary.
+This file exists to ensure that the incremental processing can be properly disabled
+when there are issues with KAPT's incremental processing.

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="ResourceName,UnusedResources">
+    
+    <!-- Direct replacements for problematic attributes -->
+    <attr name="question_mark_attr" format="reference|color|dimension|string" />
+    <attr name="double_question_mark_attr" format="reference|color|dimension|string" />
+    <attr name="attr_question_mark" format="reference|color|dimension|string" />
+    <attr name="attr_double_question_mark" format="reference|color|dimension|string" />
+    <attr name="attr_question_mark_alias" format="reference|color|dimension|string" />
+    <attr name="attr_double_question_mark_alias" format="reference|color|dimension|string" />
+    
+    <!-- Define item and string replacements -->
+    <!-- These will take precedence over app resources -->
+    <item name="question_mark_attr" type="attr">@null</item>
+    <item name="double_question_mark_attr" type="attr">@null</item>
+    <item name="attr_question_mark" type="attr">@null</item>
+    <item name="attr_double_question_mark" type="attr">@null</item>
+    
+    <!-- Direct string replacements -->
+    <string name="question_mark" translatable="false">qmark</string>
+    <string name="double_question_mark" translatable="false">qqmark</string>
+</resources>

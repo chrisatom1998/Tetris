@@ -1,0 +1,150 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.tetris"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="26"
+9        android:targetSdkVersion="33" />
+10
+11    <uses-permission android:name="android.permission.VIBRATE" />
+11-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:4:5-66
+11-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:4:22-63
+12    <uses-permission android:name="android.permission.WAKE_LOCK" />
+12-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:5:5-68
+12-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:5:22-65
+13    <uses-permission android:name="android.permission.INTERNET" />
+13-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:6:5-67
+13-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:6:22-64
+14
+15    <permission
+15-->[androidx.core:core:1.10.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/c3ffbe190b27f88accf64da5adaadb0a/transformed/core-1.10.1/AndroidManifest.xml:22:5-24:47
+16        android:name="com.tetris.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION"
+16-->[androidx.core:core:1.10.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/c3ffbe190b27f88accf64da5adaadb0a/transformed/core-1.10.1/AndroidManifest.xml:23:9-81
+17        android:protectionLevel="signature" />
+17-->[androidx.core:core:1.10.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/c3ffbe190b27f88accf64da5adaadb0a/transformed/core-1.10.1/AndroidManifest.xml:24:9-44
+18
+19    <uses-permission android:name="com.tetris.DYNAMIC_RECEIVER_NOT_EXPORTED_PERMISSION" />
+19-->[androidx.core:core:1.10.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/c3ffbe190b27f88accf64da5adaadb0a/transformed/core-1.10.1/AndroidManifest.xml:26:5-97
+19-->[androidx.core:core:1.10.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/c3ffbe190b27f88accf64da5adaadb0a/transformed/core-1.10.1/AndroidManifest.xml:26:22-94
+20
+21    <application
+21-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:8:5-55:19
+22        android:allowBackup="true"
+22-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:9:9-35
+23        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+23-->[androidx.core:core:1.10.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/c3ffbe190b27f88accf64da5adaadb0a/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
+24        android:debuggable="true"
+25        android:extractNativeLibs="false"
+26        android:icon="@mipmap/ic_launcher"
+26-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:10:9-43
+27        android:label="@string/app_name"
+27-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:11:9-41
+28        android:roundIcon="@mipmap/ic_launcher_round"
+28-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:12:9-54
+29        android:supportsRtl="true"
+29-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:13:9-35
+30        android:theme="@style/AppTheme" >
+30-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:14:9-40
+31        <activity
+31-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:16:9-24:20
+32            android:name="com.tetris.activities.MainActivity"
+32-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:17:13-52
+33            android:exported="true"
+33-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:19:13-36
+34            android:screenOrientation="portrait" >
+34-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:18:13-49
+35            <intent-filter>
+35-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:20:13-23:29
+36                <action android:name="android.intent.action.MAIN" />
+36-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:21:17-69
+36-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:21:25-66
+37
+38                <category android:name="android.intent.category.LAUNCHER" />
+38-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:22:17-77
+38-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:22:27-74
+39            </intent-filter>
+40        </activity>
+41        <activity
+41-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:26:9-29:58
+42            android:name="com.tetris.activities.GameActivity"
+42-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:27:13-52
+43            android:screenOrientation="portrait"
+43-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:28:13-49
+44            android:theme="@style/AppTheme.Fullscreen" />
+44-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:29:13-55
+45        <activity
+45-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:31:9-35:52
+46            android:name="com.tetris.activities.SettingsActivity"
+46-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:32:13-56
+47            android:label="@string/settings"
+47-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:33:13-45
+48            android:parentActivityName="com.tetris.activities.MainActivity"
+48-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:34:13-66
+49            android:screenOrientation="portrait" />
+49-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:35:13-49
+50        <activity
+50-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:37:9-41:52
+51            android:name="com.tetris.activities.StatisticsActivity"
+51-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:38:13-58
+52            android:label="@string/statistics"
+52-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:39:13-47
+53            android:parentActivityName="com.tetris.activities.MainActivity"
+53-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:40:13-66
+54            android:screenOrientation="portrait" />
+54-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:41:13-49
+55        <activity
+55-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:43:9-47:52
+56            android:name="com.tetris.activities.ThemeActivity"
+56-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:44:13-53
+57            android:label="@string/themes"
+57-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:45:13-43
+58            android:parentActivityName="com.tetris.activities.MainActivity"
+58-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:46:13-66
+59            android:screenOrientation="portrait" />
+59-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:47:13-49
+60        <activity
+60-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:49:9-53:52
+61            android:name="com.tetris.activities.AchievementsActivity"
+61-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:50:13-60
+62            android:label="@string/achievements"
+62-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:51:13-49
+63            android:parentActivityName="com.tetris.activities.MainActivity"
+63-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:52:13-66
+64            android:screenOrientation="portrait" />
+64-->/Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:53:13-49
+65
+66        <provider
+66-->[androidx.emoji2:emoji2:1.2.0] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2e9d412da2ef206c22ad470c10aeb594/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:24:9-32:20
+67            android:name="androidx.startup.InitializationProvider"
+67-->[androidx.emoji2:emoji2:1.2.0] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2e9d412da2ef206c22ad470c10aeb594/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:25:13-67
+68            android:authorities="com.tetris.androidx-startup"
+68-->[androidx.emoji2:emoji2:1.2.0] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2e9d412da2ef206c22ad470c10aeb594/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:26:13-68
+69            android:exported="false" >
+69-->[androidx.emoji2:emoji2:1.2.0] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2e9d412da2ef206c22ad470c10aeb594/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:27:13-37
+70            <meta-data
+70-->[androidx.emoji2:emoji2:1.2.0] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2e9d412da2ef206c22ad470c10aeb594/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:29:13-31:52
+71                android:name="androidx.emoji2.text.EmojiCompatInitializer"
+71-->[androidx.emoji2:emoji2:1.2.0] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2e9d412da2ef206c22ad470c10aeb594/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:30:17-75
+72                android:value="androidx.startup" />
+72-->[androidx.emoji2:emoji2:1.2.0] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2e9d412da2ef206c22ad470c10aeb594/transformed/jetified-emoji2-1.2.0/AndroidManifest.xml:31:17-49
+73            <meta-data
+73-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/488ff12ed4d04ba4f53fca9280dabe79/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:31:13-33:52
+74                android:name="androidx.lifecycle.ProcessLifecycleInitializer"
+74-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/488ff12ed4d04ba4f53fca9280dabe79/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:32:17-78
+75                android:value="androidx.startup" />
+75-->[androidx.lifecycle:lifecycle-process:2.4.1] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/488ff12ed4d04ba4f53fca9280dabe79/transformed/jetified-lifecycle-process-2.4.1/AndroidManifest.xml:33:17-49
+76        </provider>
+77
+78        <service
+78-->[androidx.room:room-runtime:2.4.3] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/ed830fd3aae66f29817dde9c56ede2bf/transformed/room-runtime-2.4.3/AndroidManifest.xml:25:9-28:40
+79            android:name="androidx.room.MultiInstanceInvalidationService"
+79-->[androidx.room:room-runtime:2.4.3] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/ed830fd3aae66f29817dde9c56ede2bf/transformed/room-runtime-2.4.3/AndroidManifest.xml:26:13-74
+80            android:directBootAware="true"
+80-->[androidx.room:room-runtime:2.4.3] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/ed830fd3aae66f29817dde9c56ede2bf/transformed/room-runtime-2.4.3/AndroidManifest.xml:27:13-43
+81            android:exported="false" />
+81-->[androidx.room:room-runtime:2.4.3] /Users/chrismjohnson/.gradle/caches/8.11.1/transforms/ed830fd3aae66f29817dde9c56ede2bf/transformed/room-runtime-2.4.3/AndroidManifest.xml:28:13-37
+82    </application>
+83
+84</manifest>

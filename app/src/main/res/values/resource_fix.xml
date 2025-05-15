@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+    <!-- Define standard XML-safe attributes for question mark replacement -->
+    <attr name="questionMarkAttr" format="reference|color|dimension|string" />
+    <attr name="doubleQuestionMarkAttr" format="reference|color|dimension|string" />
+    
+    <!-- Define strings for backward compatibility -->
+    <string name="question_mark_str">?</string>
+    <string name="double_question_mark_str">??</string>
+    
+    <!-- IDs to use instead of question mark literals -->
+    <item type="id" name="question_mark_id"></item>
+    <item type="id" name="double_question_mark_id"></item>
+</resources>

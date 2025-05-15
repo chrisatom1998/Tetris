@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Enhanced placeholders for Material Components compatibility -->
+    <style name="PlaceholderStyle" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
+        <item name="questionMarkAttr">@null</item>
+        <item name="singleQuestionMarkAttr">@null</item>
+    </style>
+    
+    <!-- Comprehensive attribute placeholders for Material Components -->
+</resources>

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+    <!-- Define XML-compliant attributes -->
+    <attr name="attr_question" format="reference|color|dimension|string" />
+    <attr name="attr_question_question" format="reference|color|dimension|string" />
+    
+    <!-- Map these to app styles -->
+</resources>

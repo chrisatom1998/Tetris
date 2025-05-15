@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+    <!-- Map the problematic attributes to valid ones -->
+    <attr name="qmark" format="reference|color|dimension|string" />
+    <attr name="qqmark" format="reference|color|dimension|string" />
+    
+    <!-- Define constants for use in the app -->
+    <item name="question_mark_reference" type="id"></item>
+    <item name="double_question_mark_reference" type="id"></item>
+    
+    <!-- Additional utility to help with mapping -->
+    <string name="qmark_literal">?</string>
+    <string name="qqmark_literal">??</string>
+</resources>

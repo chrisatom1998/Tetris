@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- This XML file exists only to define placeholders for resource linking issues -->
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+    <!-- Define placeholder attribute -->
+    <attr name="attr_placeholder" format="reference|color|dimension|string" />
+    
+    <!-- Provide a style that uses these attributes -->
+    <style name="AppTheme.AttrFix" parent="">
+        <item name="attr_placeholder">@null</item>
+    </style>
+    
+    <!-- Define string resources for question marks -->
+</resources>

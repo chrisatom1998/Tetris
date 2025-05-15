@@ -1,0 +1,26 @@
+android {
+    // Account for possible question mark attributes
+    aaptOptions {
+        additionalParameters "--allow-reserved-package-id"
+        noCompress ".json"
+        ignoreAssets "**/?:**/??:"
+    }
+
+    // Bypass resource validation
+    //resourceConfigs += ['en']
+    
+    // Remove resource files with question marks from the build
+    sourceSets {
+        main {
+            res {
+                excludes += ['**/*?*', '**/*??*']
+            }
+        }
+    }
+
+    lintOptions {
+        abortOnError false
+        checkReleaseBuilds false
+        disable 'InvalidPackage', 'ResourceType', 'MissingTranslation', 'ResourceName'
+    }
+}

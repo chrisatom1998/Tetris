@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Material Design specific attributes -->
+    <attr name="materialThemeOverlay" format="reference" />
+    <attr name="materialButtonOutlinedStyle" format="reference" />
+    <attr name="textAppearanceButton" format="reference" />
+    <attr name="textAppearanceHeadline6" format="reference" />
+    <attr name="textAppearanceSubtitle1" format="reference" />
+    <attr name="textAppearanceSubtitle2" format="reference" />
+    <attr name="textAppearanceBody1" format="reference" />
+    <attr name="textAppearanceBody2" format="reference" />
+    <attr name="textAppearanceCaption" format="reference" />
+    <attr name="textAppearanceOverline" format="reference" />
+    
+    <!-- Style for handling special attributes -->
+    <style name="SpecialMaterialAttributes" parent="Theme.MaterialComponents.DayNight">
+        <item name="materialThemeOverlay">@null</item>
+        <item name="materialButtonOutlinedStyle">@null</item>
+        <item name="materialCardViewStyle">@null</item>
+        <item name="materialAlertDialogTheme">@null</item>
+    </style>
+</resources>

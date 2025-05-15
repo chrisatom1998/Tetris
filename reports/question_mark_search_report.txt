@@ -1,0 +1,15 @@
+Question Mark Resource Report
+Generated: Wed May 14 18:44:11 PDT 2025
+----------------------------------------
+Found        1 files with literal question marks
+Found        0 files with attr/? pattern
+----------------------------------------
+FILES WITH LITERAL QUESTION MARKS:
+FILE: app/src/main/AndroidManifest.xml
+1:<?xml version="1.0" encoding="utf-8"?>
+
+----------------------------------------
+FILES WITH ATTR/? PATTERN:
+----------------------------------------
+KAPT ANNOTATION PROCESSOR DETECTION:
+Found       13 files with Room annotations

@@ -1,0 +1,10 @@
+    // Setup resource processing for question mark issues
+    sourceSets {
+        main {
+            res.srcDirs = [
+                'src/main/res-direct-patches',  // Patches first
+                'src/main/res-safe',
+                'src/main/res'
+            ]
+        }
+    }

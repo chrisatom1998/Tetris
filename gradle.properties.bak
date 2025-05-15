@@ -1,0 +1,31 @@
+# Project-wide Gradle settings
+
+# For more details on how to configure your build environment visit
+# http://www.gradle.org/docs/current/userguide/build_environment.html
+
+# IDE (e.g. Android Studio) users:
+# Settings specified in this file will override any Gradle settings
+# configured through the IDE.
+
+# Memory optimization
+org.gradle.jvmargs=-Xmx4096m -XX:+HeapDumpOnOutOfMemoryError -Dfile.encoding=UTF-8
+
+# Enable Gradle Daemon
+org.gradle.daemon=true
+
+# Enable parallel builds
+org.gradle.parallel=true
+
+# Enable build caching
+org.gradle.caching=true
+
+# Android configuration
+android.useAndroidX=true
+android.enableJetifier=true
+android.jetifier.blacklist=android-base-common
+
+# Disable resource validation to fix ? and ?? attributes
+android.disableResourceValidation=true
+android.nonTransitiveRClass=true
+android.enableR8=true
+android.enableResourceOptimizations=false

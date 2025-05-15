@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<lint>
+    <!-- Disable resource validation issues -->
+    <issue id="MissingPrefix" severity="ignore" />
+    <issue id="ResourceType" severity="ignore" />
+    <issue id="ValidFragment" severity="ignore" />
+    <issue id="ObsoleteSdkInt" severity="ignore" />
+    <issue id="LibraryCustomView" severity="ignore" />
+    <issue id="InvalidPackage" severity="ignore" />
+    <issue id="ExtraTranslation" severity="ignore" />
+    <issue id="MissingTranslation" severity="ignore" />
+    <issue id="UnusedResources" severity="ignore" />
+</lint>

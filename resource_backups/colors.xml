@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core theme colors -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#00BCD4</color>
+    <color name="colorAccentDark">#0097A7</color>
+    <color name="colorError">#F44336</color>
+
+    <!-- Common colors -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+    <color name="semi_transparent">#80000000</color>
+
+    <!-- Text colors -->
+    <color name="textPrimary">#212121</color>
+    <color name="textSecondary">#757575</color>
+    <color name="textHint">#9E9E9E</color>
+    <color name="textLight">#F5F5F5</color>
+
+    <!-- Background colors -->
+    <color name="windowBackground">#FAFAFA</color>
+    <color name="cardBackground">#FFFFFF</color>
+    <color name="tooltipBackground">#E6616161</color>
+
+    <!-- Specific UI element colors -->
+    <color name="highScore">#FFD700</color>
+    <color name="pauseOverlay">#AA000000</color>
+    <color name="gameOverBackground">#CC212121</color>
+    <color name="gridLines">#3DFFFFFF</color>
+    <color name="achievementLocked">#757575</color>
+    <color name="achievementPoints">#FFD700</color>
+    
+    <!-- Game board colors -->
+    <color name="boardBackground">#212121</color>
+    <color name="boardBorder">#616161</color>
+    
+    <!-- Tetrimino colors - Standard -->
+    <color name="tetromino_i">#00F0F0</color> <!-- Cyan -->
+    <color name="tetromino_j">#0000F0</color> <!-- Blue -->
+    <color name="tetromino_l">#F0A000</color> <!-- Orange -->
+    <color name="tetromino_o">#F0F000</color> <!-- Yellow -->
+    <color name="tetromino_s">#00F000</color> <!-- Green -->
+    <color name="tetromino_t">#A000F0</color> <!-- Purple -->
+    <color name="tetromino_z">#F00000</color> <!-- Red -->
+    
+    <!-- Tetrimino colors - Classic -->
+    <color name="classic_tetromino_i">#00FFFF</color> <!-- Cyan -->
+    <color name="classic_tetromino_j">#0000FF</color> <!-- Blue -->
+    <color name="classic_tetromino_l">#FFA500</color> <!-- Orange -->
+    <color name="classic_tetromino_o">#FFFF00</color> <!-- Yellow -->
+    <color name="classic_tetromino_s">#00FF00</color> <!-- Green -->
+    <color name="classic_tetromino_t">#800080</color> <!-- Purple -->
+    <color name="classic_tetromino_z">#FF0000</color> <!-- Red -->
+    
+    <!-- Tetrimino colors - Minimalist -->
+    <color name="minimalist_tetromino_i">#78BEBE</color> <!-- Light Teal -->
+    <color name="minimalist_tetromino_j">#6478B4</color> <!-- Soft Blue -->
+    <color name="minimalist_tetromino_l">#BEA064</color> <!-- Tan -->
+    <color name="minimalist_tetromino_o">#BEBE78</color> <!-- Soft Yellow -->
+    <color name="minimalist_tetromino_s">#78BE78</color> <!-- Soft Green -->
+    <color name="minimalist_tetromino_t">#A078B4</color> <!-- Lavender -->
+    <color name="minimalist_tetromino_z">#BE7878</color> <!-- Soft Red -->
+    
+    <!-- Level colors for progress indicators -->
+    <color name="level_1">#4CAF50</color>  <!-- Green -->
+    <color name="level_5">#8BC34A</color>  <!-- Light Green -->
+    <color name="level_10">#FFEB3B</color> <!-- Yellow -->
+    <color name="level_15">#FFC107</color> <!-- Amber -->
+    <color name="level_20">#FF9800</color> <!-- Orange -->
+    <color name="level_25">#FF5722</color> <!-- Deep Orange -->
+    <color name="level_30">#F44336</color> <!-- Red -->
+    
+    <!-- Statistic graph colors -->
+    <color name="graph_line">#2196F3</color>
+    <color name="graph_fill">#802196F3</color>
+    <color name="graph_grid">#E0E0E0</color>
+    <color name="graph_text">#757575</color>
+    
+    <!-- Preferences categories -->
+    <color name="pref_category_gameplay">#3F51B5</color>
+    <color name="pref_category_visual">#009688</color>
+    <color name="pref_category_audio">#E91E63</color>
+    <color name="pref_category_controls">#FF9800</color>
+    
+    <!-- Achievement categories -->
+    <color name="achievement_games">#4CAF50</color>
+    <color name="achievement_score">#F44336</color>
+    <color name="achievement_lines">#2196F3</color>
+    <color name="achievement_level">#FF9800</color>
+    <color name="achievement_special">#9C27B0</color>
+    <color name="achievement_modes">#009688</color>
+</resources>

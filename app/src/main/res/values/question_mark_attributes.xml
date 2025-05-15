@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:tools="http://schemas.android.com/tools" tools:ignore="ResourceName">
+    <!-- Define direct replacements for problematic question mark attributes -->
+    <attr name="question_mark_attr" format="reference|color|dimension|string" />
+    <attr name="double_question_mark_attr" format="reference|color|dimension|string" />
+    
+    <!-- These are used by the resource processor to replace attr/? and attr/?? -->
+    <string name="question_mark" translatable="false">qmark</string>
+    <string name="double_question_mark" translatable="false">qqmark</string>
+    
+    <!-- Define attributes that might be referenced with ? in themes -->
+    <attr name="attr_question_mark" format="reference|color|dimension|string" />
+    <attr name="attr_double_question_mark" format="reference|color|dimension|string" />
+    
+    <!-- Legacy compatibility for direct ? references -->
+    <style name="QuestionMarkCompatStyle">
+        <item name="question_mark_attr">@null</item>
+        <item name="double_question_mark_attr">@null</item>
+        <item name="attr_question_mark">@null</item>
+        <item name="attr_double_question_mark">@null</item>
+    </style>
+</resources>

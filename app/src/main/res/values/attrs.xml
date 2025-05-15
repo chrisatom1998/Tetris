@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:app="http://schemas.android.com/apk/res-auto">
+    <!-- Custom button attributes -->
+    <attr name="cornerRadius" format="dimension" />
+    
+    <!-- Material Design attributes -->
+    <attr name="materialButtonStyle" format="reference" />
+    <attr name="shapeAppearanceOverlay" format="reference" />
+    <attr name="colorPrimaryVariant" format="color" />
+    <attr name="colorOnPrimary" format="color" />
+    <attr name="colorSecondary" format="color" />
+    <attr name="colorSecondaryVariant" format="color" />
+    <attr name="colorOnSecondary" format="color" />
+    
+    <!-- Common style attributes -->
+    
+    <!-- Common style attributes -->
+    <declare-styleable name="AppTheme">
+        <attr name="windowLayoutInDisplayCutoutMode" format="integer" />
+        <attr name="windowNoTitle" format="boolean" />
+        <attr name="windowActionBar" format="boolean" />
+        <attr name="android:windowFullscreen" format="boolean" />
+    </declare-styleable>
+</resources>
