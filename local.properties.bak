@@ -10,7 +10,6 @@
 sdk.dir=/Users/chrismjohnson/Library/Android/sdk
 
 # Bypass resource validation and processing 
-android.disableResourceValidation=true
 
 # Disable unnecessary build features
 android.defaults.buildfeatures.buildconfig=true
@@ -21,4 +20,6 @@ android.defaults.buildfeatures.shaders=false
 
 # Disable JDK image processing that's causing build failures
 android.jdkimage.disable=true
-org.gradle.java.home=/Library/Java/JavaVirtualMachines/openjdk-17.jdk/Contents/Home
+
+# Set Java 17 home path - update this to match your Java 17 installation path
+org.gradle.java.home=/Library/Java/JavaVirtualMachines/jdk-17.jdk/Contents/Home

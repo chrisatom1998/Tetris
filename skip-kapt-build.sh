@@ -38,7 +38,6 @@ org.gradle.configureondemand=true
 # Android configuration
 android.useAndroidX=true
 android.enableJetifier=true
-android.disableResourceValidation=true
 android.nonTransitiveRClass=true
 
 # Disable annotation processing (this is key to fixing the build)

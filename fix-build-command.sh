@@ -4,4 +4,4 @@ echo "===== Running Fixed Build Command ====="
 ./gradlew clean
 
 # Assemble without KAPT processing
-./gradlew :app:assembleDebug -x kaptDebugKotlin -x lint -x processDebugAnnotationsWithKsp
+./gradlew :app:assembleDebug -x kaptDebugKotlin -x lint

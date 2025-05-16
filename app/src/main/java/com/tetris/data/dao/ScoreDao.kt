@@ -63,8 +63,8 @@ interface ScoreDao {
     /**
      * Get detailed high scores with player names
      */
-    @Query("SELECT hs.id, hs.score, hs.level_reached as levelReached, hs.lines_cleared as linesCleared, " +
-           "hs.achieved_at as achievedAt, hs.gameMode, p.name as playerName " +
+    @Query("SELECT hs.id, hs.score, hs.levelReached as levelReached, hs.linesCleared as linesCleared, " +
+           "hs.achievedAt as achievedAt, hs.gameMode, p.name as playerName " +
            "FROM high_scores hs INNER JOIN players p ON hs.playerId = p.id " +
            "ORDER BY hs.score DESC LIMIT :limit")
     suspend fun getDetailedHighScores(limit: Int): List<DetailedHighScore>
@@ -125,7 +125,7 @@ interface ScoreDao {
     /**
      * Delete old high scores (older than 1 year)
      */
-    @Query("DELETE FROM high_scores WHERE achieved_at < datetime('now', '-1 year')")
+    @Query("DELETE FROM high_scores WHERE achievedAt < datetime('now', '-1 year')")
     suspend fun deleteOldHighScores()
     
     /**

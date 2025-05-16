@@ -387,27 +387,11 @@ class PieceGenerator {
     }
 }
 ```
-
+### start a comment block
 #### Collision Detection
-```kotlin
-fun isCollision(piece: Piece, board: Board, offsetX: Int = 0, offsetY: Int = 0): Boolean {
-    piece.blocks.forEach { block ->
-        val x = piece.x + block.x + offsetX
-        val y = piece.y + block.y + offsetY
-        
-        // Check bounds
-        if (x < 0 || x >= board.width || y < 0 || y >= board.height) {
-            return true
-        }
-        
-        // Check if space is already occupied
-        if (y >= 0 && board.cells[y][x] != null) {
-            return true
-        }
-    }
-    return false
-}
-```
+
+/Users/chrismjohnson/Library/Android/sdk
+
 
 #### Line Clearing
 ```kotlin

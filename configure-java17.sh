@@ -98,7 +98,6 @@ update_gradle_properties() {
   
   # Add or update properties
   if ! grep -q "android.disableResourceValidation" gradle.properties; then
-    echo "android.disableResourceValidation=true" >> gradle.properties
   fi
   
   if ! grep -q "org.gradle.jvmargs" gradle.properties; then

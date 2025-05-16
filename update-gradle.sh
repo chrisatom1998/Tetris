@@ -52,7 +52,6 @@ android.enableJetifier=true
 android.jetifier.blacklist=android-base-common
 
 # Disable resource validation to fix ? and ?? attributes
-android.disableResourceValidation=true
 android.nonTransitiveRClass=true
 android.enableR8=true
 android.enableResourceOptimizations=false

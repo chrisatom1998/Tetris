@@ -520,7 +520,7 @@ class GameView @JvmOverloads constructor(
             sidebarLeft,
             holdPieceRect.bottom + 20,
             sidebarLeft + sidebarWidth,
-            h - 10
+            (h - 10).toFloat()
         )
         
         // Adjust text size based on view dimensions

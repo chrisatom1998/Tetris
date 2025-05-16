@@ -22,7 +22,6 @@ cat > local.properties << LOCAL_PROPS_EOF
 sdk.dir=/Users/chrismjohnson/Library/Android/sdk
 
 # Bypass resource validation and processing 
-android.disableResourceValidation=true
 
 # Disable unnecessary build features
 android.defaults.buildfeatures.buildconfig=true
@@ -59,7 +58,6 @@ org.gradle.caching=true
 # Android configuration
 android.useAndroidX=true
 android.enableJetifier=true
-android.disableResourceValidation=true
 android.nonTransitiveRClass=true
 android.enableBuildScriptClasspathCheck=false
 

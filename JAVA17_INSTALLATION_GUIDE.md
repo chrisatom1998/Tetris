@@ -170,7 +170,7 @@ echo $JAVA_HOME
 
 **Solution**: Verify the resource fix file exists and try:
 ```bash
-./gradlew clean :app:assembleDebug -x lint -Pandroid.disableResourceValidation=true
+./gradlew clean :app:assembleDebug -x lint 
 ```
 
 ### Issue: Build fails with other errors

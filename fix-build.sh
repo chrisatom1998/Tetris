@@ -40,7 +40,6 @@ echo "Starting build with deprecation warnings enabled..."
 ./gradlew clean :app:assembleDebug \
   --warning-mode all \
   --stacktrace \
-  -Pandroid.disableResourceValidation=true \
   -Pkapt.use.worker.api=false \
   --no-daemon
 

@@ -8,6 +8,8 @@ import androidx.room.TypeConverters
 import com.tetris.data.converters.DateConverter
 import com.tetris.data.converters.BoardConverter
 import com.tetris.data.converters.PieceConverter
+import com.tetris.data.converters.IntArrayConverter
+import com.tetris.data.converters.AchievementCategoryConverter
 import com.tetris.data.dao.AchievementDao
 import com.tetris.data.dao.GameStateDao
 import com.tetris.data.dao.PlayerDao
@@ -15,6 +17,7 @@ import com.tetris.data.dao.ScoreDao
 import com.tetris.data.dao.StatisticsDao
 import com.tetris.data.dao.ThemeDao
 import com.tetris.model.Achievement
+import com.tetris.model.AchievementDefinition // Added import
 import com.tetris.model.GameState
 import com.tetris.model.HighScore
 import com.tetris.model.Player
@@ -32,12 +35,19 @@ import com.tetris.model.Theme
         HighScore::class,
         Statistics::class,
         Theme::class,
-        Achievement::class
+        Achievement::class,
+        AchievementDefinition::class // Added entity
     ],
     version = 1,
     exportSchema = false
 )
-@TypeConverters(DateConverter::class, BoardConverter::class, PieceConverter::class)
+@TypeConverters(
+    DateConverter::class,
+    BoardConverter::class,
+    PieceConverter::class,
+    IntArrayConverter::class,
+    AchievementCategoryConverter::class // Added converter
+)
 abstract class AppDatabase : RoomDatabase() {
     
     // DAOs

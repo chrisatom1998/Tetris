@@ -1,0 +1,182 @@
+plugins {
+    id 'kotlin-android'
+    id 'com.android.application'
+    id "kotlin-parcelize" // Added for better compatibility with newer Kotlin"org.jetbrains.kotlin.android") // Ensure this is present
+    id 'org.jetbrains.kotlin.android'
+    id 'com.google.devtools.ksp' // Apply KSP plugin here
+}
+
+// We'll use Android's built-in resource processing instead of custom tasks
+
+android {
+    compileSdkVersion 35
+    defaultConfig {
+        applicationId "com.tetris"
+        minSdkVersion 26
+        targetSdkVersion 35
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        splits {
+            density {
+                enable true
+                reset() // Clears any previously included densities
+                include "mdpi", "hdpi", "xhdpi", "xxhdpi", "xxxhdpi" // Specify the densities you want to create splits for
+                // compatibleScreens 'small', 'normal', 'large', 'xlarge' // Optional: further filter by screen size
+            }
+        }
+        // Add minimal resource to not conflict with others
+        //resValue "string", "resource_fix_note", "This is used to fix resource issues"
+
+        // Explicitly define question mark attributes
+        //resValue "string", "question_mark", "?"
+        //resValue "string", "double_question_mark", "??"
+        //resConfigs "en", "fr", "hdpi", "xhdpi"
+    }
+    // Limit resources to just English to reduce complexity
+
+    // Configure namespace for Android Gradle Plugin 8.x compatibility
+    namespace "com.tetris"
+
+    // Disable JDK image processing
+    buildFeatures {
+        buildConfig true
+        aidl false
+        renderScript false
+        resValues true
+        shaders false
+        // Keep other build features the same
+        viewBinding true
+    }
+    compileOptions {
+        // Updated to use Java 17 for better compatibility
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    kotlinOptions {
+        jvmTarget = '17'
+    }
+
+    // Enhanced configuration to fix attr/?? resource errors
+
+    // Disable strict resource validation
+    /*
+ lint {
+ abortOnError false
+ checkReleaseBuilds false
+ disable 'MissingTranslation', 'ExtraTranslation', 'ResourceType',
+ 'ValidFragment', 'UnusedResources', 'InvalidPackage'
+
+ // Use a configuration file for lint
+ lintConfig file('lint.xml')
+ }
+ */
+
+    // Enhanced resource processing configuration
+    androidResources {
+        // Explicitly ignore problematic patterns
+        ignoreAssetsPattern '!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~:!*.?:!*.??:'
+
+        // Disable strict resource validation
+        //noCompress = ''
+    }
+
+    // Setup resource processing for question mark issues
+    packagingOptions {
+        resources {
+            excludes += ['**/?', '**/??', '**/*.?', '**/*.??']
+        }
+    }
+
+    // Enhanced setup for resource directories
+    sourceSets {
+        main {
+            res.srcDirs = [
+                    'src/main/res-direct-patches',  // Patches first
+                    'src/main/res-safe',
+                    'src/main/res-fixed',
+                    'src/main/res'
+            ]
+
+            // Exclude problematic resource patterns
+            resources.excludes = ['**/?', '**/??', '**/*.?', '**/*.??']
+        }
+    }
+
+    // Account for possible question mark attributes
+    aaptOptions {
+        additionalParameters = ["--allow-reserved-package-id", "--no-version-vectors", "--warn-manifest-validation"]
+        noCompress ".json"
+        ignoreAssetsPattern "!.svn:!.git:!.ds_store:!*.scc:.*:!CVS:!thumbs.db:!picasa.ini:!*~:!*.?:!*.??:"
+    }
+
+    applicationVariants.configureEach { variant ->
+        variant.processJavaResourcesProvider.configure { task ->
+            task.duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+        }
+    }
+
+    // Force specific versions for compatibility
+    configurations.configureEach {
+        resolutionStrategy {
+            force 'androidx.activity:activity:1.5.1'
+            force 'androidx.activity:activity-ktx:1.5.1'
+            force 'androidx.fragment:fragment-ktx:1.5.7'
+            force 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1'
+            force 'androidx.lifecycle:lifecycle-livedata-ktx:2.5.1'
+            force 'androidx.lifecycle:lifecycle-runtime-ktx:2.5.1'
+        }
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+
+dependencies {
+    // Kotlin
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib:1.7.10' // Match the project's Kotlin version
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2'
+
+    // AndroidX Core
+    implementation 'androidx.core:core-ktx:1.16.0'
+    implementation 'androidx.appcompat:appcompat:1.7.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
+    implementation 'com.google.android.material:material:1.12.0'
+
+    // AndroidX Extensions
+    implementation 'androidx.activity:activity-ktx:1.10.1'
+    // Explicitly downgraded to be compatible with compileSdk 33
+    implementation 'androidx.fragment:fragment-ktx:1.8.6' // Downgraded for compatibility
+    implementation 'androidx.lifecycle:lifecycle-viewmodel-ktx:2.9.0'
+    // Downgraded for compatibility
+    implementation 'androidx.lifecycle:lifecycle-livedata-ktx:2.9.0' // Downgraded for compatibility
+    implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.9.0' // Downgraded for compatibility
+
+    // Room Database
+    implementation 'androidx.room:room-runtime:2.7.1'
+    implementation 'androidx.room:room-ktx:2.7.1'
+    ksp("androidx.room:room-compiler:2.7.1")
+
+    // JSON Serialization
+    implementation 'com.google.code.gson:gson:2.13.1'
+
+    // Preferences DataStore
+    implementation 'androidx.datastore:datastore-preferences:1.1.6'
+
+    // Performance monitoring
+    implementation 'androidx.startup:startup-runtime:1.2.0'
+
+    // Testing
+    testImplementation "junit:junit:4.13.2"
+    androidTestImplementation 'androidx.test.ext:junit:1.2.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.6.1'
+}
+
+// No need to apply the build-hack.gradle as we've integrated the needed configuration directly
+apply from: 'build-hack.gradle'

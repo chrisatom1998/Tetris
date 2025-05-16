@@ -27,7 +27,6 @@ android.enableJetifier=true
 android.jetifier.ignorelist=android-base-common
 
 # Disable resource validation to fix ? and ?? attributes
-android.disableResourceValidation=true
 android.nonTransitiveRClass=true
 android.enableResourceOptimizations=false
 

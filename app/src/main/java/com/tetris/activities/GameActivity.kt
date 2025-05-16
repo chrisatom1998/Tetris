@@ -38,17 +38,17 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
     private lateinit var linesTextView: TextView
     private lateinit var timeTextView: TextView
     private lateinit var pauseButton: ImageButton
-    
+
     // Game components
     private lateinit var tetrisEngine: TetrisEngine
     private lateinit var inputManager: InputManager
-    
+
     // Battery and performance optimization
     private lateinit var batteryOptimizer: BatteryOptimizer
-    
+
     // Database
     private lateinit var db: AppDatabase
-    
+
     // State variables
     private var gameMode = GameMode.MARATHON
     private var continueGame = false
@@ -56,7 +56,9 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
     private var isGameActive = false
     private var isPaused = false
     private var gameTimeMillis = 0L
-    
+    private var accelerometerWasEnabled = false
+
+
     // Timer for updating the clock display
     private val timeHandler = Handler(Looper.getMainLooper())
     private val timeRunnable = object : Runnable {
@@ -67,30 +69,30 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             }
         }
     }
-    
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
+
         // Keep screen on during gameplay
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
-        
+
         setContentView(R.layout.activity_game)
-        
+
         // Get game parameters from intent
         parseIntent()
-        
+
         // Initialize database
         db = AppDatabase.getInstance(this)
-        
+
         // Initialize UI components
         initializeViews()
-        
+
         // Initialize game components
         initializeGameComponents()
-        
+
         // Set up input handling
         setupInputHandling()
-        
+
         // Start/resume game
         if (continueGame) {
             loadSavedGame()
@@ -98,7 +100,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             startNewGame()
         }
     }
-    
+
     /**
      * Parse intent extras
      */
@@ -111,15 +113,15 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             } catch (e: IllegalArgumentException) {
                 GameMode.MARATHON
             }
-            
+
             // Check if continuing a saved game
             continueGame = extras.getBoolean(EXTRA_CONTINUE_GAME, false)
-            
+
             // Get player ID
             playerId = extras.getInt(EXTRA_PLAYER_ID, 0)
         }
     }
-    
+
     /**
      * Initialize UI views
      */
@@ -130,26 +132,26 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
         linesTextView = findViewById(R.id.linesTextView)
         timeTextView = findViewById(R.id.timeTextView)
         pauseButton = findViewById(R.id.pauseButton)
-        
+
         // Set initial values
         scoreTextView.text = "0"
         levelTextView.text = "1"
         linesTextView.text = "0"
         timeTextView.text = "00:00"
-        
+
         // Set up button listeners
         pauseButton.setOnClickListener {
             togglePause()
         }
     }
-    
+
     /**
      * Initialize game engine and related components
      */
     private fun initializeGameComponents() {
         // Create battery optimizer
         batteryOptimizer = BatteryOptimizer(this)
-        
+
         // Create the game engine with standard board size (10x20)
         tetrisEngine = TetrisEngine(
             boardWidth = 10,
@@ -158,50 +160,50 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             initialLevel = 1,
             gameMode = gameMode
         )
-        
+
         // Set up game view with the same board size
         gameView.setBoardSize(10, 20)
-        
+
         // Apply performance optimizations based on battery level
         applyPerformanceOptimizations()
     }
-    
+
     /**
      * Set up input handling
      */
     private fun setupInputHandling() {
         // Create input manager
         inputManager = InputManager(this, this)
-        
+
         // Set touch listener on game view
         gameView.setOnTouchListener(inputManager)
-        
+
         // Enable accelerometer if set in preferences
-        val useAccelerometer = getSharedPreferences("tetris_settings", MODE_PRIVATE)
+        accelerometerWasEnabled = getSharedPreferences("tetris_settings", MODE_PRIVATE)
             .getBoolean("use_accelerometer", false)
-        inputManager.setAccelerometerEnabled(useAccelerometer)
-        
+        inputManager.setAccelerometerEnabled(accelerometerWasEnabled)
+
         // Set sensitivity from preferences
         val sensitivity = getSharedPreferences("tetris_settings", MODE_PRIVATE)
             .getFloat("input_sensitivity", 0.5f)
         inputManager.setSensitivity(sensitivity)
     }
-    
+
     /**
      * Apply performance optimizations based on battery level
      */
     private fun applyPerformanceOptimizations() {
         // Get battery level
         val batteryLevel = batteryOptimizer.getBatteryLevel()
-        
+
         // Set rendering options based on battery level
         val showGridLines = batteryLevel > 30 // Only show grid lines if battery > 30%
         val showGhostPiece = batteryLevel > 20 // Only show ghost piece if battery > 20%
         val useThemeColors = batteryLevel > 15 // Use simplified colors if battery very low
-        
+
         gameView.setRenderOptions(showGridLines, showGhostPiece, useThemeColors)
     }
-    
+
     /**
      * Start a new game
      */
@@ -211,7 +213,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
         tetrisEngine.start()
         timeHandler.post(timeRunnable)
     }
-    
+
     /**
      * Load a saved game
      */
@@ -221,7 +223,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             val gameState = withContext(Dispatchers.IO) {
                 db.gameStateDao().getActiveGameStateForPlayer(playerId)
             }
-            
+
             if (gameState != null) {
                 // Update UI with saved game info
                 withContext(Dispatchers.Main) {
@@ -230,19 +232,19 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
                     linesTextView.text = gameState.linesCleared.toString()
                     gameTimeMillis = gameState.timeElapsed
                     updateTimeDisplay()
-                    
+
                     // Load the game state into the engine
                     tetrisEngine.loadGameState(gameState)
-                    
+
                     // Start the game
                     isGameActive = true
                     isPaused = gameState.isPaused
-                    
+
                     // Update pause button state
                     pauseButton.setImageResource(
                         if (isPaused) R.drawable.ic_play else R.drawable.ic_pause
                     )
-                    
+
                     if (!isPaused) {
                         tetrisEngine.start()
                         timeHandler.post(timeRunnable)
@@ -256,7 +258,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             }
         }
     }
-    
+
     /**
      * Toggle pause state
      */
@@ -277,39 +279,42 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             }
         }
     }
-    
+
     /**
      * Update the time display
      */
     private fun updateTimeDisplay() {
         // Update game time
         gameTimeMillis = tetrisEngine.getGameState().timeElapsed
-        
+
         // Format the time as MM:SS
         val totalSeconds = gameTimeMillis / 1000
         val minutes = totalSeconds / 60
         val seconds = totalSeconds % 60
         timeTextView.text = String.format("%02d:%02d", minutes, seconds)
     }
-    
+
     /**
      * Save the current game state
      */
     private fun saveGameState() {
         lifecycleScope.launch {
             if (isGameActive && playerId > 0) {
-                val gameState = tetrisEngine.getGameState()
-                gameState.playerId = playerId
-                gameState.isPaused = isPaused
-                
+                val currentGameState: GameState = tetrisEngine.getGameState()
+                // Create a new GameState instance with updated playerId and isPaused
+                val updatedGameState = currentGameState.copy(
+                    playerId = this@GameActivity.playerId, // GameActivity's playerId
+                    isPaused = this@GameActivity.isPaused  // GameActivity's isPaused
+                )
+
                 // Save to database
                 withContext(Dispatchers.IO) {
-                    db.gameStateDao().insertOrUpdate(gameState)
+                    db.gameStateDao().insertOrUpdate(updatedGameState)
                 }
             }
         }
     }
-    
+
     /**
      * Update player statistics with the current game state
      */
@@ -319,11 +324,11 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
                 withContext(Dispatchers.IO) {
                     // Get current player
                     val player = db.playerDao().getPlayerById(playerId)
-                    
+
                     player?.let {
                         // Extract stats from game state
                         val stats = gameState.extractStatistics()
-                        
+
                         // Update player stats
                         it.updateStats(
                             score = stats["score"] as Long,
@@ -333,10 +338,10 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
                             tetrisCount = stats["tetrisCount"] as Int,
                             perfectClear = (stats["perfectClearCount"] as Int) > 0
                         )
-                        
+
                         // Save updated player
                         db.playerDao().update(it)
-                        
+
                         // Update statistics table
                         val statistics = db.statisticsDao().getStatisticsForPlayer(player.id)
                         if (statistics != null) {
@@ -379,7 +384,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             }
         }
     }
-    
+
     /**
      * Show game over dialog
      */
@@ -387,30 +392,30 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
         val score = gameState.score
         val level = gameState.level
         val linesCleared = gameState.linesCleared
-        
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Game Over")
         builder.setMessage(
             "Score: $score\n" +
-            "Level: $level\n" +
-            "Lines: $linesCleared\n" +
-            "Time: ${formatTime(gameState.timeElapsed)}"
+                    "Level: $level\n" +
+                    "Lines: $linesCleared\n" +
+                    "Time: ${formatTime(gameState.timeElapsed)}"
         )
-        
+
         builder.setPositiveButton("New Game") { _, _ ->
             // Start a new game
             startNewGame()
         }
-        
+
         builder.setNegativeButton("Main Menu") { _, _ ->
             // Return to main menu
             finish()
         }
-        
+
         builder.setCancelable(false)
         builder.show()
     }
-    
+
     /**
      * Show game win dialog (for Sprint and Ultra modes)
      */
@@ -419,43 +424,43 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
         val score = gameState.score
         val linesCleared = gameState.linesCleared
         val time = gameState.timeElapsed
-        
+
         val builder = AlertDialog.Builder(this)
         builder.setTitle("Congratulations!")
-        
+
         val message = when (gameMode) {
             GameMode.SPRINT -> {
                 "You cleared 40 lines in ${formatTime(time)}!\n" +
-                "Score: $score"
+                        "Score: $score"
             }
             GameMode.ULTRA -> {
                 "Time's up! You scored $score points in 2 minutes!\n" +
-                "Lines cleared: $linesCleared"
+                        "Lines cleared: $linesCleared"
             }
             else -> {
                 "You won!\n" +
-                "Score: $score\n" +
-                "Lines: $linesCleared\n" +
-                "Time: ${formatTime(time)}"
+                        "Score: $score\n" +
+                        "Lines: $linesCleared\n" +
+                        "Time: ${formatTime(time)}"
             }
         }
-        
+
         builder.setMessage(message)
-        
+
         builder.setPositiveButton("New Game") { _, _ ->
             // Start a new game
             startNewGame()
         }
-        
+
         builder.setNegativeButton("Main Menu") { _, _ ->
             // Return to main menu
             finish()
         }
-        
+
         builder.setCancelable(false)
         builder.show()
     }
-    
+
     /**
      * Format time in milliseconds to MM:SS format
      */
@@ -465,214 +470,169 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
         val seconds = totalSeconds % 60
         return String.format("%02d:%02d", minutes, seconds)
     }
-    
+
     //
     // TetrisEngine.TetrisCallback implementation
     //
-    
+
     override fun onGameStart() {
         // Game has started
         isGameActive = true
         isPaused = false
     }
-    
+
     override fun onGamePause() {
         // Game was paused
         isPaused = true
     }
-    
+
     override fun onGameResume() {
         // Game was resumed
         isPaused = false
     }
-    
+
     override fun onGameStop() {
         // Game was stopped
         isGameActive = false
         timeHandler.removeCallbacks(timeRunnable)
     }
-    
+
     override fun onGameOver(gameState: GameState) {
         // Game is over
         runOnUiThread {
             isGameActive = false
             timeHandler.removeCallbacks(timeRunnable)
-            
-            // Update player statistics
             updatePlayerStats(gameState)
-            
-            // Remove saved game state since it's complete
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    db.gameStateDao().deleteByPlayerId(playerId)
-                }
-            }
-            
-            // Show game over dialog
             showGameOverDialog(gameState)
         }
     }
-    
+
     override fun onGameWin() {
-        // Player won the game (Sprint or Ultra mode)
+        // Game was won (Sprint or Ultra mode)
         runOnUiThread {
             isGameActive = false
             timeHandler.removeCallbacks(timeRunnable)
-            
-            // Update player statistics
             updatePlayerStats(tetrisEngine.getGameState())
-            
-            // Remove saved game state since it's complete
-            lifecycleScope.launch {
-                withContext(Dispatchers.IO) {
-                    db.gameStateDao().deleteByPlayerId(playerId)
-                }
-            }
-            
-            // Show win dialog
             showGameWinDialog()
         }
     }
-    
+
     override fun onLinesCleared(lines: Int) {
-        // Lines were cleared, update UI
-        runOnUiThread {
-            linesTextView.text = tetrisEngine.getGameState().linesCleared.toString()
-        }
+        // Update lines display
+        linesTextView.text = tetrisEngine.getGameState().linesCleared.toString()
     }
-    
+
     override fun onScoreChanged(score: Long, level: Int) {
-        // Score or level changed, update UI
-        runOnUiThread {
-            scoreTextView.text = score.toString()
-            levelTextView.text = level.toString()
-        }
+        // Update score and level display
+        scoreTextView.text = score.toString()
+        levelTextView.text = level.toString()
     }
-    
+
     override fun onRender(board: Board, currentPiece: Piece?, nextPiece: Piece?, heldPiece: Piece?) {
-        // Update the game view with current game state
+        // Update game view with new state
         gameView.updateGameState(board, currentPiece, nextPiece, heldPiece)
-        
-        // Update metrics display
-        val state = tetrisEngine.getGameState()
-        gameView.updateMetrics(state.score, state.level, state.linesCleared)
+        // gameView.invalidate() // Request redraw - updateGameState should call render which invalidates
     }
-    
+
     //
     // InputManager.InputListener implementation
     //
-    
+
     override fun onMove(direction: InputManager.InputDirection) {
-        if (!isGameActive || isPaused) return
-        
-        when (direction) {
-            InputManager.InputDirection.LEFT -> tetrisEngine.movePieceLeft()
-            InputManager.InputDirection.RIGHT -> tetrisEngine.movePieceRight()
-            InputManager.InputDirection.DOWN -> tetrisEngine.movePieceDown()
+        if (isGameActive && !isPaused) {
+            when (direction) {
+                InputManager.InputDirection.LEFT -> tetrisEngine.movePieceLeft()
+                InputManager.InputDirection.RIGHT -> tetrisEngine.movePieceRight()
+                InputManager.InputDirection.DOWN -> tetrisEngine.movePieceDown()
+                // UP is not handled by onMove in this setup
+            }
         }
     }
-    
+
     override fun onRotate(clockwise: Boolean) {
-        if (!isGameActive || isPaused) return
-        
-        if (clockwise) {
-            tetrisEngine.rotatePieceClockwise()
-        } else {
-            tetrisEngine.rotatePieceCounterClockwise()
+        if (isGameActive && !isPaused) {
+            if (clockwise) {
+                tetrisEngine.rotatePieceClockwise()
+            } else {
+                tetrisEngine.rotatePieceCounterClockwise()
+            }
         }
     }
-    
+
     override fun onSoftDrop(pressed: Boolean) {
-        if (!isGameActive || isPaused) return
-        
-        if (pressed) {
-            // Move down once, actual continuous soft drop is handled by the engine
+        // This is called when a scroll down event occurs.
+        // The 'pressed' state can be used for continuous soft drop if desired.
+        // For now, a single call to movePieceDown is sufficient.
+        if (isGameActive && !isPaused && pressed) {
             tetrisEngine.movePieceDown()
         }
     }
-    
+
     override fun onReleaseDown() {
-        // Nothing to do here, soft drop is handled by single moves
+        // This is called when a touch up event occurs after a scroll down.
+        // Can be used to stop continuous soft drop if implemented.
+        // For now, no specific action needed here.
     }
-    
+
     override fun onHardDrop() {
-        if (!isGameActive || isPaused) return
-        
-        tetrisEngine.hardDrop()
-    }
-    
-    override fun onHold() {
-        if (!isGameActive || isPaused) return
-        
-        tetrisEngine.holdPiece()
-    }
-    
-    override fun onPause() {
-        if (isGameActive) {
-            togglePause()
+        if (isGameActive && !isPaused) {
+            tetrisEngine.hardDrop()
         }
     }
-    
+
+    override fun onHold() {
+        if (isGameActive && !isPaused) {
+            tetrisEngine.holdPiece()
+        }
+    }
+
     //
     // Activity lifecycle methods
     //
-    
+
     override fun onPause() {
         super.onPause()
-        
-        // If game is active but not already paused, pause it
-        if (isGameActive && !isPaused) {
-            tetrisEngine.pause()
+        if (isGameActive) {
             isPaused = true
+            tetrisEngine.pause()
+            pauseButton.setImageResource(R.drawable.ic_play)
+            timeHandler.removeCallbacks(timeRunnable)
+            saveGameState() // Save game when activity is paused
+            if (accelerometerWasEnabled) {
+                inputManager.setAccelerometerEnabled(false)
+            }
         }
-        
-        // Save game state
-        saveGameState()
-        
-        // Disable accelerometer to save battery
-        inputManager.setAccelerometerEnabled(false)
-        
-        // Remove time handler callbacks
-        timeHandler.removeCallbacks(timeRunnable)
     }
-    
+
     override fun onResume() {
         super.onResume()
-        
-        // Re-apply battery optimizations in case battery level changed
-        applyPerformanceOptimizations()
-        
-        // If using accelerometer, re-enable it
-        val useAccelerometer = getSharedPreferences("tetris_settings", MODE_PRIVATE)
-            .getBoolean("use_accelerometer", false)
-        inputManager.setAccelerometerEnabled(useAccelerometer)
-        
-        // Don't automatically resume the game - leave it paused until user presses play
         if (isGameActive && isPaused) {
-            pauseButton.setImageResource(R.drawable.ic_play)
-        } else if (isGameActive) {
+            // Don't auto-resume if it was explicitly paused by user
+            // User needs to press play button
+        } else if (isGameActive && !isPaused) {
+            // If game was active and not paused (e.g. screen lock), resume engine
+            tetrisEngine.resume()
             timeHandler.post(timeRunnable)
         }
-    }
-    
-    override fun onDestroy() {
-        super.onDestroy()
-        
-        // Clean up resources
-        tetrisEngine.stop()
-        inputManager.dispose()
-        timeHandler.removeCallbacks(timeRunnable)
-        
-        // Save final game state if game is still active
-        if (isGameActive) {
-            saveGameState()
+        if (accelerometerWasEnabled) {
+            inputManager.setAccelerometerEnabled(true)
         }
     }
-    
+
+    override fun onDestroy() {
+        super.onDestroy()
+        if (isGameActive) {
+            tetrisEngine.stop() // Ensure engine is stopped
+            saveGameState()     // Save game on destroy
+        }
+        inputManager.dispose() // Clean up InputManager resources
+        timeHandler.removeCallbacks(timeRunnable)
+        window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+    }
+
     companion object {
-        // Intent extras
-        const val EXTRA_GAME_MODE = "extra_game_mode"
-        const val EXTRA_CONTINUE_GAME = "extra_continue_game"
-        const val EXTRA_PLAYER_ID = "extra_player_id"
+        const val EXTRA_GAME_MODE = "game_mode"
+        const val EXTRA_CONTINUE_GAME = "continue_game"
+        const val EXTRA_PLAYER_ID = "player_id"
     }
 }

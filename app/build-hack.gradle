@@ -3,9 +3,9 @@ android {
     aaptOptions {
         additionalParameters "--allow-reserved-package-id"
         noCompress ".json"
-        ignoreAssets "**/?:**/??:"
+        ignoreAssetsPattern "**/?:**/??:"
     }
-
+    
     // Bypass resource validation
     //resourceConfigs += ['en']
     
@@ -17,10 +17,18 @@ android {
             }
         }
     }
-
-    lintOptions {
+    
+    lint {
         abortOnError false
         checkReleaseBuilds false
         disable 'InvalidPackage', 'ResourceType', 'MissingTranslation', 'ResourceName'
+    }
+}
+
+// Fix for configuration root/variant issue
+configurations.all { config ->
+    // Ensure configurations aren't both a resolution root and a variant
+    if (config.name.startsWith('debug') && config.canBeConsumed) {
+        config.canBeResolved = false
     }
 }

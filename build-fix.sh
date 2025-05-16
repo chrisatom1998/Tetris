@@ -62,7 +62,6 @@ echo "Starting build with resource validation disabled..."
 ./gradlew clean :app:assembleDebug \
   -x lint \
   -x processDebugResources \
-  -Pandroid.disableResourceValidation=true \
   -Pkapt.use.worker.api=false \
   --no-daemon
 

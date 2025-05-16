@@ -15,7 +15,6 @@ org.gradle.caching=true
 # Android configuration
 android.useAndroidX=true
 android.enableJetifier=true
-android.disableResourceValidation=true
 android.nonTransitiveRClass=true
 android.enableBuildScriptClasspathCheck=false
 

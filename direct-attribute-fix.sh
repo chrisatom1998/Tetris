@@ -67,7 +67,6 @@ org.gradle.configureondemand=true
 # Android configuration
 android.useAndroidX=true
 android.enableJetifier=true
-android.disableResourceValidation=true
 android.nonTransitiveRClass=true
 
 # Disable annotation processing
@@ -86,7 +85,7 @@ echo "===== Running Fixed Build Command ====="
 ./gradlew clean
 
 # Assemble without KAPT processing
-./gradlew :app:assembleDebug -x kaptDebugKotlin -x lint -x processDebugAnnotationsWithKsp
+./gradlew :app:assembleDebug -x kaptDebugKotlin -x lint -x
 EOF
 chmod +x fix-build-command.sh
 

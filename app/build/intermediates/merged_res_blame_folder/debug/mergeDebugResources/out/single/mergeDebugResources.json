@@ -1,0 +1,54 @@
+[
+    {
+        "merged": "com.tetris.app-debug-42:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.tetris.app-main-44:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "com.tetris.app-main-44:/drawable/ic_launcher_foreground.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.tetris.app-main-44:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/anim_pulse.xml.flat",
+        "source": "com.tetris.app-main-44:/anim/pulse.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/layout_activity_main.xml.flat",
+        "source": "com.tetris.app-main-44:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/drawable_ic_pause.xml.flat",
+        "source": "com.tetris.app-main-44:/drawable/ic_pause.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/layout_activity_game.xml.flat",
+        "source": "com.tetris.app-main-44:/layout/activity_game.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/drawable_dialog_background.xml.flat",
+        "source": "com.tetris.app-main-44:/drawable/dialog_background.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/drawable_ic_play.xml.flat",
+        "source": "com.tetris.app-main-44:/drawable/ic_play.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/drawable_tetris_logo.xml.flat",
+        "source": "com.tetris.app-main-44:/drawable/tetris_logo.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/drawable_leaderboard_item_background.xml.flat",
+        "source": "com.tetris.app-main-44:/drawable/leaderboard_item_background.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/mipmap-mdpi_ic_launcher.xml.flat",
+        "source": "com.tetris.app-main-44:/mipmap-mdpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.tetris.app-debug-42:/mipmap-mdpi_ic_launcher_round.xml.flat",
+        "source": "com.tetris.app-main-44:/mipmap-mdpi/ic_launcher_round.xml"
+    }
+]

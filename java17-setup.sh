@@ -166,7 +166,6 @@ test_build() {
   # Clean and build using gradlew
   ./gradlew clean :app:assembleDebug \
     -x lint \
-    -Pandroid.disableResourceValidation=true \
     -Dorg.gradle.java.home="$JAVA_HOME"
     
   # Check if build was successful

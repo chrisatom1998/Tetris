@@ -94,26 +94,26 @@ class MainActivity : AppCompatActivity() {
         
         settingsButton.setOnClickListener {
             // Start settings activity
-            val intent = Intent(this, SettingsActivity::class.java)
-            startActivity(intent)
+            // val intent = Intent(this, SettingsActivity::class.java) // TODO: Uncomment when SettingsActivity is created
+            // startActivity(intent)
         }
-        
+
         statisticsButton.setOnClickListener {
             // Start statistics activity
-            val intent = Intent(this, StatisticsActivity::class.java)
-            startActivity(intent)
+            // val intent = Intent(this, StatisticsActivity::class.java) // TODO: Uncomment when StatisticsActivity is created
+            // startActivity(intent)
         }
-        
+
         themesButton.setOnClickListener {
             // Start themes activity
-            val intent = Intent(this, ThemeActivity::class.java)
-            startActivity(intent)
+            // val intent = Intent(this, ThemeActivity::class.java) // TODO: Uncomment when ThemeActivity is created
+            // startActivity(intent)
         }
-        
+
         achievementsButton.setOnClickListener {
             // Start achievements activity
-            val intent = Intent(this, AchievementsActivity::class.java)
-            startActivity(intent)
+            // val intent = Intent(this, AchievementsActivity::class.java) // TODO: Uncomment when AchievementsActivity is created
+            // startActivity(intent)
         }
     }
     

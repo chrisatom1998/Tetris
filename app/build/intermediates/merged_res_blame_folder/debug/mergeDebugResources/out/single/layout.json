@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.tetris.app-mergeDebugResources-41:/layout/activity_game.xml",
+        "source": "com.tetris.app-main-44:/layout/activity_game.xml"
+    },
+    {
+        "merged": "com.tetris.app-mergeDebugResources-41:/layout/activity_main.xml",
+        "source": "com.tetris.app-main-44:/layout/activity_main.xml"
+    }
+]

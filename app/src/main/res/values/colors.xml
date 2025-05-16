@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="ic_launcher_background">#3F51B5</color>
+<color name="cardBackground">#FFFFFFFF</color>
+    <color name="boardBackground">#FFE0E0E0</color>
+    <color name="semi_transparent">#80000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="pauseOverlay">#A0000000</color>
+<color name="gameOverBackground">#FFD32F2F</color>
+    <color name="colorError">#FFF44336</color>
+    <color name="windowBackground">#FFFAFAFA</color>
+    <color name="textSecondary">#FF757575</color>
+</resources>
