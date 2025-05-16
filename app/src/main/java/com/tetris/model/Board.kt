@@ -54,12 +54,17 @@ class Board(val width: Int = 10, val height: Int = 20) : Serializable {
         }
         
         // Clear lines and move blocks down
-        linesToClear.sortedDescending().forEach { lineY ->
+        // When multiple lines are cleared in a single step the indices of
+        // the remaining lines change as lines are removed. To handle this
+        // correctly we adjust the target index by the number of lines that
+        // have already been cleared.
+        linesToClear.sortedDescending().forEachIndexed { clearedIndex, originalLineY ->
+            val lineY = originalLineY + clearedIndex
             // Clear the line
             for (x in 0 until width) {
                 cells[lineY][x] = null
             }
-            
+
             // Move all lines above down
             for (y in lineY downTo 1) {
                 for (x in 0 until width) {
