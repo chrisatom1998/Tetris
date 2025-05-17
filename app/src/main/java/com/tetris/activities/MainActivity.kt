@@ -2,6 +2,7 @@ package com.tetris.activities
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.Button
@@ -13,6 +14,7 @@ import com.tetris.R
 import com.tetris.model.GameMode
 import com.tetris.model.Player
 import com.tetris.data.AppDatabase
+import com.tetris.activities.AchievementsActivity // Added import
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -37,6 +39,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var db: AppDatabase
     private var currentPlayer: Player? = null
     
+private var activeGamePlayerId: Int? = null // Cache player ID for whom an active game exists
     // Coroutine scope for DB operations
     private val dbScope = CoroutineScope(Dispatchers.IO)
     
@@ -88,8 +91,15 @@ class MainActivity : AppCompatActivity() {
         }
         
         continueButton.setOnClickListener {
-            // Start the game with the saved state
-            startGame(GameMode.MARATHON, true)
+            activeGamePlayerId?.let { playerId ->
+                Log.d("MainActivity", "Continue button clicked with activeGamePlayerId: $playerId")
+                startGame(GameMode.MARATHON, true, playerId)
+            } ?: run {
+                // Fallback or error handling if activeGamePlayerId is null, though button shouldn't be visible
+                Log.e("MainActivity", "Continue button clicked but activeGamePlayerId is null. This shouldn't happen if button is visible.")
+                // Optionally, start a new game or show an error
+                 startGame(GameMode.MARATHON, false) // Or show an error to the user
+            }
         }
         
         settingsButton.setOnClickListener {
@@ -122,7 +132,7 @@ class MainActivity : AppCompatActivity() {
      */
     private fun showGameModeDialog() {
         val dialog = GameModeDialog(this) { gameMode ->
-            startGame(gameMode, false)
+            startGame(gameMode, false, currentPlayer?.id)
         }
         dialog.show()
     }
@@ -130,14 +140,18 @@ class MainActivity : AppCompatActivity() {
     /**
      * Start the game with the selected mode
      */
-    private fun startGame(gameMode: GameMode, continueGame: Boolean) {
+    private fun startGame(gameMode: GameMode, continueGame: Boolean, explicitPlayerId: Int? = null) {
         val intent = Intent(this, GameActivity::class.java).apply {
             putExtra(GameActivity.EXTRA_GAME_MODE, gameMode.name)
             putExtra(GameActivity.EXTRA_CONTINUE_GAME, continueGame)
-            
-            // Pass current player ID if available
-            currentPlayer?.let {
-                putExtra(GameActivity.EXTRA_PLAYER_ID, it.id)
+
+            val playerIdToUse = explicitPlayerId ?: currentPlayer?.id
+
+            if (playerIdToUse != null) {
+                putExtra(GameActivity.EXTRA_PLAYER_ID, playerIdToUse)
+                Log.d("MainActivity", "Starting GameActivity with playerId: $playerIdToUse, continueGame: $continueGame")
+            } else {
+                Log.w("MainActivity", "Starting GameActivity without a playerId. New game will likely be forced if continueGame is true.")
             }
         }
         startActivity(intent)
@@ -183,10 +197,23 @@ class MainActivity : AppCompatActivity() {
     private fun checkForSavedGame() {
         dbScope.launch {
             // Check if there's an active game
-            val hasActiveGame = currentPlayer?.let { player ->
-                val activeGameState = db.gameStateDao().getActiveGameStateForPlayer(player.id)
-                activeGameState != null
-            } ?: false
+            var hasActiveGame = false
+            val currentLoadedPlayer = currentPlayer // Capture current player state for this check
+            
+            if (currentLoadedPlayer != null) {
+                val activeGameState = db.gameStateDao().getActiveGameStateForPlayer(currentLoadedPlayer.id)
+                if (activeGameState != null) {
+                    activeGamePlayerId = currentLoadedPlayer.id // Cache the ID
+                    hasActiveGame = true
+                    Log.d("MainActivity", "Active game found for playerId: ${currentLoadedPlayer.id}. Continue button visible.")
+                } else {
+                    activeGamePlayerId = null // No active game for this player
+                    Log.d("MainActivity", "No active game found for playerId: ${currentLoadedPlayer.id}. Continue button hidden.")
+                }
+            } else {
+                activeGamePlayerId = null // No player loaded
+                Log.d("MainActivity", "No current player loaded. Continue button hidden.")
+            }
             
             // Update UI to show continue button if there's an active game
             withContext(Dispatchers.Main) {

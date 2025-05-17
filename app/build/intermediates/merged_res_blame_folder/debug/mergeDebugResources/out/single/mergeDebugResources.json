@@ -1,74 +1,78 @@
 [
     {
-        "merged": "com.tetris.app-debug-42:/mipmap-anydpi-v26_ic_launcher.xml.flat",
-        "source": "com.tetris.app-main-44:/mipmap-anydpi-v26/ic_launcher.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/layout_activity_settings.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/layout/activity_settings.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/layout_activity_statistics.xml.flat",
-        "source": "com.tetris.app-main-44:/layout/activity_statistics.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/drawable_ic_pause.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/drawable/ic_pause.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/drawable_ic_launcher_foreground.xml.flat",
-        "source": "com.tetris.app-main-44:/drawable/ic_launcher_foreground.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/layout_activity_main.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/layout/activity_main.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/layout_activity_settings.xml.flat",
-        "source": "com.tetris.app-main-44:/layout/activity_settings.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/layout_activity_theme.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/layout/activity_theme.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/layout_activity_theme.xml.flat",
-        "source": "com.tetris.app-main-44:/layout/activity_theme.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/anim_pulse.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/anim/pulse.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/color_default_color_on_surface_csl.xml.flat",
-        "source": "com.tetris.app-main-44:/color/default_color_on_surface_csl.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/mipmap-anydpi-v26/ic_launcher.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/raw_placeholder_start_sound.ogg.flat",
-        "source": "com.tetris.app-main-44:/raw/placeholder_start_sound.ogg"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/drawable_dialog_background.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/drawable/dialog_background.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
-        "source": "com.tetris.app-main-44:/mipmap-anydpi-v26/ic_launcher_round.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/layout_activity_statistics.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/layout/activity_statistics.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/anim_pulse.xml.flat",
-        "source": "com.tetris.app-main-44:/anim/pulse.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/drawable_ic_launcher_foreground.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/drawable/ic_launcher_foreground.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/layout_activity_main.xml.flat",
-        "source": "com.tetris.app-main-44:/layout/activity_main.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/drawable_ic_play.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/drawable/ic_play.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/drawable_ic_pause.xml.flat",
-        "source": "com.tetris.app-main-44:/drawable/ic_pause.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/mipmap-mdpi_ic_launcher_round.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/mipmap-mdpi/ic_launcher_round.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/layout_activity_game.xml.flat",
-        "source": "com.tetris.app-main-44:/layout/activity_game.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/drawable_tetris_logo.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/drawable/tetris_logo.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/drawable_dialog_background.xml.flat",
-        "source": "com.tetris.app-main-44:/drawable/dialog_background.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/mipmap-anydpi-v26/ic_launcher_round.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/drawable_ic_play.xml.flat",
-        "source": "com.tetris.app-main-44:/drawable/ic_play.xml"
+        "merged": "com.tetris.app-debug-42:/layout_activity_achievements.xml.flat",
+        "source": "com.tetris.app-main-44:/layout/activity_achievements.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/drawable_tetris_logo.xml.flat",
-        "source": "com.tetris.app-main-44:/drawable/tetris_logo.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/raw_placeholder_start_sound.ogg.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/raw/placeholder_start_sound.ogg"
     },
     {
-        "merged": "com.tetris.app-debug-42:/drawable_leaderboard_item_background.xml.flat",
-        "source": "com.tetris.app-main-44:/drawable/leaderboard_item_background.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/drawable_leaderboard_item_background.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/drawable/leaderboard_item_background.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/mipmap-mdpi_ic_launcher.xml.flat",
-        "source": "com.tetris.app-main-44:/mipmap-mdpi/ic_launcher.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/color_default_color_on_surface_csl.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/color/default_color_on_surface_csl.xml"
     },
     {
-        "merged": "com.tetris.app-debug-42:/mipmap-mdpi_ic_launcher_round.xml.flat",
-        "source": "com.tetris.app-main-44:/mipmap-mdpi/ic_launcher_round.xml"
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/mipmap-mdpi_ic_launcher.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/mipmap-mdpi/ic_launcher.xml"
+    },
+    {
+        "merged": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-debug-42:/layout_activity_game.xml.flat",
+        "source": "/Users/chrismjohnson/.gradle/daemon/8.7/com.tetris.app-main-44:/layout/activity_game.xml"
     }
 ]

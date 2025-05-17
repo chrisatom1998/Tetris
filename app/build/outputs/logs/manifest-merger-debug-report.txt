@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-51:12
-INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-51:12
+ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-52:12
+INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:2:1-52:12
 MERGED from [androidx.databinding:viewbinding:8.5.2] /Users/chrismjohnson/.gradle/caches/transforms-4/7756d31bc583345ae866f1c700ef6087/transformed/viewbinding-8.5.2/AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] /Users/chrismjohnson/.gradle/caches/transforms-4/7ac42d633d4a8e16c06dd0a2e50be5d6/transformed/material-1.11.0/AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/chrismjohnson/.gradle/caches/transforms-4/36a34e90e3e03732f1c80918d10488f8/transformed/constraintlayout-2.1.4/AndroidManifest.xml:2:1-11:12
@@ -78,8 +78,8 @@ ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:
 	android:name
 		ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:6:22-64
 application
-ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:8:5-49:19
-INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:8:5-49:19
+ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:8:5-50:19
+INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:8:5-50:19
 MERGED from [com.google.android.material:material:1.11.0] /Users/chrismjohnson/.gradle/caches/transforms-4/7ac42d633d4a8e16c06dd0a2e50be5d6/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] /Users/chrismjohnson/.gradle/caches/transforms-4/7ac42d633d4a8e16c06dd0a2e50be5d6/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] /Users/chrismjohnson/.gradle/caches/transforms-4/36a34e90e3e03732f1c80918d10488f8/transformed/constraintlayout-2.1.4/AndroidManifest.xml:9:5-20
@@ -170,6 +170,10 @@ ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:
 		ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:45:13-43
 	android:name
 		ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:44:13-53
+activity#com.tetris.activities.AchievementsActivity
+ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:49:9-69
+	android:name
+		ADDED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml:49:19-66
 uses-sdk
 INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /Users/chrismjohnson/Desktop/tetris/app/src/main/AndroidManifest.xml

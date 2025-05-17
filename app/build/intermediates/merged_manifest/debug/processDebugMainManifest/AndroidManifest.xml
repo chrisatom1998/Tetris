@@ -58,6 +58,7 @@
             android:label="@string/themes"
             android:parentActivityName="com.tetris.activities.MainActivity"
             android:screenOrientation="portrait" />
+        <activity android:name="com.tetris.activities.AchievementsActivity" />
 
         <provider
             android:name="androidx.startup.InitializationProvider"
