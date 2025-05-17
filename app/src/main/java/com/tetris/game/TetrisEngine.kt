@@ -1,8 +1,13 @@
 package com.tetris.game
 
+import android.content.Context
 import android.graphics.Point
+import android.media.AudioAttributes
+import android.media.SoundPool
 import android.os.Handler
 import android.os.SystemClock
+import android.util.Log
+import com.tetris.R // Assuming R class is available for placeholder resources like R.raw.placeholder_sound_start
 import com.tetris.model.Board
 import com.tetris.model.GameMode
 import com.tetris.model.GameState
@@ -18,6 +23,7 @@ import kotlin.math.min
  * Handles game loop, piece movement, collision detection, and scoring.
  */
 class TetrisEngine(
+    private val context: Context, // Added context for SoundPool
     private val boardWidth: Int = 10,
     private val boardHeight: Int = 20,
     private val callback: TetrisCallback,
@@ -31,7 +37,16 @@ class TetrisEngine(
     private var nextPiece: Piece? = null
     private var heldPiece: Piece? = null
     private var hasHeld = false
-    
+
+    // Audio components
+    private lateinit var soundPool: SoundPool
+    private var soundIdStart: Int = 0
+    private var soundIdLineClear: Int = 0
+    private var soundIdGameOver: Int = 0
+    // Note: com.tetris.R.raw.placeholder_start_sound etc. are assumed to be defined Int resource IDs
+    // if actual sound files were present in app/src/main/res/raw/.
+    // For this task, we are demonstrating API usage.
+
     // Game status
     private var isRunning = false
     private var isPaused = false
@@ -56,6 +71,7 @@ class TetrisEngine(
     private val gameLoopRunnable = object : Runnable {
         override fun run() {
             if (isRunning && !isPaused) {
+                Log.d("TetrisDebug", "TetrisEngine: gameLoopRunnable.run() - PRE update()")
                 update()
                 handler.postDelayed(this, FRAME_DELAY)
             }
@@ -63,6 +79,32 @@ class TetrisEngine(
     }
     
     init {
+        // Initialize SoundPool
+        val audioAttributes = AudioAttributes.Builder()
+            .setUsage(AudioAttributes.USAGE_GAME)
+            .setContentType(AudioAttributes.CONTENT_TYPE_SONIFICATION)
+            .build()
+
+        soundPool = SoundPool.Builder()
+            .setAudioAttributes(audioAttributes)
+            .setMaxStreams(4) // Allow up to 4 simultaneous sounds
+            .build()
+
+        // Load placeholder sounds - these would point to actual files in res/raw
+        // The com.tetris.R.raw.* IDs are placeholders for this exercise.
+        try {
+            // These R.raw.* constants would be integer IDs if the resources existed.
+            soundIdStart = soundPool.load(context, com.tetris.R.raw.placeholder_start_sound, 1)
+            //soundIdLineClear = soundPool.load(context, com.tetris.R.raw.placeholder_line_clear_sound, 1)
+            //soundIdGameOver = soundPool.load(context, com.tetris.R.raw.placeholder_game_over_sound, 1)
+        } catch (e: Exception) { // Catching generic Exception, could be Resources.NotFoundException
+            Log.e("TetrisAudio", "Error loading placeholder sounds. Ensure placeholder_*.mp3 (or similar) are in res/raw and R file is generated.", e)
+            // Set to 0 to prevent crashes if play is called with an invalid ID
+            soundIdStart = 0
+            soundIdLineClear = 0
+            soundIdGameOver = 0
+        }
+
         // Initialize with a player ID of 0, will be updated when game is saved
         gameState = GameState.createNewGame(
             playerId = 0,
@@ -85,6 +127,7 @@ class TetrisEngine(
      * Starts the game loop
      */
     fun start() {
+        Log.d("TetrisPerformance", "TetrisEngine: start BEGIN")
         if (!isRunning) {
             isRunning = true
             isPaused = false
@@ -92,18 +135,26 @@ class TetrisEngine(
             lastFrameTime = gameStartTime
             handler.post(gameLoopRunnable)
             callback.onGameStart()
+            // Play start sound
+            if (soundIdStart != 0) {
+                soundPool.play(soundIdStart, 1.0f, 1.0f, 1, 0, 1.0f)
+            }
         }
+        Log.d("TetrisPerformance", "TetrisEngine: start END")
     }
     
     /**
      * Pauses the game
      */
     fun pause() {
+        Log.d("TetrisGraphics", "TetrisEngine: pause BEGIN")
         if (isRunning && !isPaused) {
             isPaused = true
             lastPauseTime = SystemClock.uptimeMillis()
             callback.onGamePause()
+            soundPool.autoPause() // Pause all active streams
         }
+        Log.d("TetrisGraphics", "TetrisEngine: pause END")
     }
     
     /**
@@ -124,10 +175,14 @@ class TetrisEngine(
      * Stops the game
      */
     fun stop() {
+        Log.d("TetrisGraphics", "TetrisEngine: stop BEGIN")
         isRunning = false
         handler.removeCallbacks(gameLoopRunnable)
         updateElapsedTime()
         callback.onGameStop()
+        soundPool.autoPause() // Stop all active streams
+        soundPool.release()   // Release SoundPool resources when engine stops
+    Log.d("TetrisGraphics", "TetrisEngine: stop END")
     }
     
     /**
@@ -171,6 +226,11 @@ class TetrisEngine(
         }
         
         // Render the game
+        Log.d("TetrisDebug", "TetrisEngine: update() - PRE callback.onRender()")
+        if (!isRunning) { // Add check for isRunning before rendering
+            Log.d("TetrisDebug", "TetrisEngine: update() - SKIPPING onRender because !isRunning")
+            return
+        }
         callback.onRender(board, currentPiece, nextPiece, heldPiece)
     }
     
@@ -259,6 +319,9 @@ class TetrisEngine(
         if (board.isCollision(piece)) {
             isGameOver = true
             gameState.isGameOver = true
+            if (soundIdGameOver != 0) {
+                soundPool.play(soundIdGameOver, 1.0f, 1.0f, 1, 0, 1.0f) // Play game over sound
+            }
             callback.onGameOver(gameState)
             return
         }
@@ -302,6 +365,9 @@ class TetrisEngine(
         
         // Update the game state
         callback.onLinesCleared(linesCleared)
+        if (linesCleared > 0 && soundIdLineClear != 0) {
+            soundPool.play(soundIdLineClear, 0.8f, 0.8f, 1, 0, 1.0f) // Play line clear sound
+        }
         callback.onScoreChanged(gameState.score, gameState.level)
         
         // Check for game over condition
@@ -541,6 +607,7 @@ class TetrisEngine(
      * Loads a saved game state
      */
     fun loadGameState(savedState: GameState) {
+        Log.d("TetrisPerformance", "TetrisEngine: loadGameState BEGIN")
         this.gameState = savedState
         
         // Update local references
@@ -569,6 +636,8 @@ class TetrisEngine(
         // Tell the callback about the loaded state
         callback.onScoreChanged(gameState.score, gameState.level)
         callback.onRender(board, currentPiece, nextPiece, heldPiece)
+        Log.d("TetrisAudio", "TetrisEngine: Audio state loaded (simulated)")
+        Log.d("TetrisPerformance", "TetrisEngine: loadGameState END")
     }
     
     companion object {

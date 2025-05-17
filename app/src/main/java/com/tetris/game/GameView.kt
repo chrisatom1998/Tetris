@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.graphics.Rect
 import android.graphics.RectF
 import android.util.AttributeSet
+import android.util.Log
 import android.view.SurfaceHolder
 import android.view.SurfaceView
 import com.tetris.model.Board
@@ -60,6 +61,7 @@ class GameView @JvmOverloads constructor(
     private var score = 0L
     private var level = 1
     private var linesCleared = 0
+    private var tetrisEngine: TetrisEngine? = null // Engine instance for lifecycle management
     
     init {
         // Initialize paints
@@ -113,6 +115,15 @@ class GameView @JvmOverloads constructor(
         useThemeColors = useTheme
         invalidate()
     }
+
+    /**
+     * Sets the TetrisEngine instance.
+     * This is crucial for allowing GameView to manage the engine's lifecycle,
+     * especially for stopping the engine's thread when the surface is destroyed.
+     */
+    fun setTetrisEngine(engine: TetrisEngine) {
+        this.tetrisEngine = engine
+    }
     
     /**
      * Update the game state for rendering
@@ -123,6 +134,7 @@ class GameView @JvmOverloads constructor(
         newNextPiece: Piece?,
         newHeldPiece: Piece?
     ) {
+        Log.d("TetrisDebug", "GameView: updateGameState() - ENTER")
         board = newBoard
         currentPiece = newCurrentPiece
         nextPiece = newNextPiece
@@ -133,6 +145,7 @@ class GameView @JvmOverloads constructor(
         
         // Request a redraw
         render()
+        Log.d("TetrisDebug", "GameView: updateGameState() - EXIT")
     }
     
     /**
@@ -190,7 +203,11 @@ class GameView @JvmOverloads constructor(
      * Render the game state
      */
     fun render() {
-        if (!holder.surface.isValid) return
+        Log.d("TetrisDebug", "GameView: render() - ENTER. Surface valid: ${holder.surface.isValid}")
+        if (!holder.surface.isValid) {
+            Log.d("TetrisDebug", "GameView: render() - Surface invalid, bailing.")
+            return
+        }
         
         val canvas = holder.lockCanvas() ?: return
         try {
@@ -532,6 +549,7 @@ class GameView @JvmOverloads constructor(
      * Surface created callback
      */
     override fun surfaceCreated(holder: SurfaceHolder) {
+        Log.d("TetrisGraphics", "GameView: surfaceCreated")
         render()
     }
     
@@ -539,6 +557,7 @@ class GameView @JvmOverloads constructor(
      * Surface changed callback
      */
     override fun surfaceChanged(holder: SurfaceHolder, format: Int, width: Int, height: Int) {
+        Log.d("TetrisGraphics", "GameView: surfaceChanged - format: $format, width: $width, height: $height")
         render()
     }
     
@@ -546,6 +565,29 @@ class GameView @JvmOverloads constructor(
      * Surface destroyed callback
      */
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-        // Nothing to do here
+        Log.d("TetrisGraphics", "surfaceDestroyed: Entered")
+        
+        // Critical: Stop and join the TetrisEngine's rendering thread
+        // before the surface is actually destroyed.
+        var engineStoppedSuccessfully = false
+        this.tetrisEngine?.let { engine ->
+            Log.d("TetrisGraphics", "surfaceDestroyed: Attempting to stop TetrisEngine.")
+            try {
+                // Assuming tetrisEngine.stop() correctly signals its thread,
+                // stops it, and waits for it to join.
+                engine.stop()
+                engineStoppedSuccessfully = true
+                Log.d("TetrisGraphics", "surfaceDestroyed: TetrisEngine.stop() completed.")
+            } catch (e: Exception) {
+                // Log any exception during the engine stop process.
+                Log.e("TetrisGraphics", "surfaceDestroyed: Exception while stopping TetrisEngine", e)
+            }
+        } ?: run {
+            Log.w("TetrisGraphics", "surfaceDestroyed: TetrisEngine reference is null. Cannot stop engine thread.")
+        }
+
+        // super.surfaceDestroyed(holder) // This call is not needed and causes the "Abstract member cannot be accessed directly" error.
+        // SurfaceView does not provide a concrete implementation for this callback method to be chained.
+        Log.d("TetrisGraphics", "surfaceDestroyed: Exiting. Engine stopped: $engineStoppedSuccessfully")
     }
 }

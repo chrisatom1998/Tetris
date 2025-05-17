@@ -4,7 +4,17 @@
             "outputFile": "com.tetris.app-mergeDebugResources-40:/values-v24/values-v24.xml",
             "map": [
                 {
-                    "source": "/Users/chrismjohnson/.gradle/caches/8.11.1/transforms/2d62f4bdba240b2714247adfb14b732b/transformed/material-1.11.0/res/values-v24/values-v24.xml",
+                    "source": "/Users/chrismjohnson/.gradle/caches/transforms-4/72489156f5b379499921f1bc2c261d97/transformed/appcompat-1.6.1/res/values-v24/values-v24.xml",
+                    "from": {
+                        "startLines": "2,3",
+                        "startColumns": "4,4",
+                        "startOffsets": "55,212",
+                        "endColumns": "156,134",
+                        "endOffsets": "207,342"
+                    }
+                },
+                {
+                    "source": "/Users/chrismjohnson/.gradle/caches/transforms-4/7ac42d633d4a8e16c06dd0a2e50be5d6/transformed/material-1.11.0/res/values-v24/values-v24.xml",
                     "from": {
                         "startLines": "2,3,4,5,6,9,12,15",
                         "startColumns": "4,4,4,4,4,4,4,4",
@@ -20,16 +30,6 @@
                         "endLines": "4,5,6,7,10,13,16,19",
                         "endColumns": "84,98,86,100,10,10,10,10",
                         "endOffsets": "427,526,613,714,913,1126,1327,1542"
-                    }
-                },
-                {
-                    "source": "/Users/chrismjohnson/.gradle/caches/8.11.1/transforms/ea49d3fdee0f6cf962d91d17fcd3a4cf/transformed/appcompat-1.6.1/res/values-v24/values-v24.xml",
-                    "from": {
-                        "startLines": "2,3",
-                        "startColumns": "4,4",
-                        "startOffsets": "55,212",
-                        "endColumns": "156,134",
-                        "endOffsets": "207,342"
                     }
                 }
             ]

@@ -1375,6 +1375,7 @@ color colorAccent
 color colorError
 color colorPrimary
 color colorPrimaryDark
+color default_color_on_surface_csl
 color design_bottom_navigation_shadow_color
 color design_box_stroke_color
 color design_dark_default_color_background
@@ -3742,6 +3743,9 @@ layout abc_select_dialog_material
 layout abc_tooltip
 layout activity_game
 layout activity_main
+layout activity_settings
+layout activity_statistics
+layout activity_theme
 layout custom_dialog
 layout design_bottom_navigation_item
 layout design_bottom_sheet_dialog
@@ -3824,6 +3828,7 @@ layout support_simple_spinner_dropdown_item
 mipmap ic_launcher
 mipmap ic_launcher_round
 plurals mtrl_badge_content_description
+raw placeholder_start_sound
 string abc_action_bar_home_description
 string abc_action_bar_up_description
 string abc_action_menu_overflow_description

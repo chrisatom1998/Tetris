@@ -1,4 +1,5 @@
-// Updated for Gradle 8.6+ with Java 24 compatibility
+// settings.gradle (Groovy DSL)
+
 pluginManagement {
     repositories {
         google()
@@ -8,12 +9,18 @@ pluginManagement {
 }
 
 dependencyResolutionManagement {
+    // This line ensures that only repositories defined here in settings.gradle are used.
+    // It's good practice and likely already present if you previously got errors about project-level repos.
     repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
     repositories {
         google()
         mavenCentral()
+        gradlePluginPortal()
+
+        // You can add other repositories here if your project needs them,
+        // e.g., JitPack: maven { url 'https://jitpack.io' }
     }
 }
 
-rootProject.name = 'tetris'
-include ':app'
+rootProject.name = "tetris" // Or your actual project name
+include ':app' // Include your application module and any other modules

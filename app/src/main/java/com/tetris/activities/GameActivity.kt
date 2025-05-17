@@ -4,6 +4,7 @@ import android.content.DialogInterface
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.widget.ImageButton
@@ -72,21 +73,40 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        Log.d("TetrisPerformance", "onCreate: Start")
+        val startTime = System.currentTimeMillis()
 
         // Keep screen on during gameplay
         window.addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
 
+        Log.d("TetrisPerformance", "onCreate: Calling setContentView")
+        val setContentViewStartTime = System.currentTimeMillis()
         setContentView(R.layout.activity_game)
+        val setContentViewEndTime = System.currentTimeMillis()
+        Log.d("TetrisPerformance", "onCreate: setContentView took ${setContentViewEndTime - setContentViewStartTime} ms")
 
         // Get game parameters from intent
+        Log.d("TetrisPerformance", "onCreate: Calling parseIntent")
+        val parseIntentStartTime = System.currentTimeMillis()
         parseIntent()
+        val parseIntentEndTime = System.currentTimeMillis()
+        Log.d("TetrisPerformance", "onCreate: parseIntent took ${parseIntentEndTime - parseIntentStartTime} ms")
 
         // Initialize database
+        Log.d("TetrisPerformance", "onCreate: Initializing database")
+        val dbInitStartTime = System.currentTimeMillis()
         db = AppDatabase.getInstance(this)
+        val dbInitEndTime = System.currentTimeMillis()
+        Log.d("TetrisPerformance", "onCreate: Database initialization took ${dbInitEndTime - dbInitStartTime} ms")
 
         // Initialize UI components
+        Log.d("TetrisPerformance", "onCreate: Calling initializeViews")
+        val initializeViewsStartTime = System.currentTimeMillis()
         initializeViews()
+        val initializeViewsEndTime = System.currentTimeMillis()
+        Log.d("TetrisPerformance", "onCreate: initializeViews took ${initializeViewsEndTime - initializeViewsStartTime} ms")
 
+        Log.d("TetrisPerformance", "onCreate: Before initializeGameComponents")
         // Initialize game components
         initializeGameComponents()
 
@@ -99,6 +119,8 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
         } else {
             startNewGame()
         }
+        val endTime = System.currentTimeMillis()
+        Log.d("TetrisPerformance", "onCreate: Total time ${endTime - startTime} ms")
     }
 
     /**
@@ -154,6 +176,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
 
         // Create the game engine with standard board size (10x20)
         tetrisEngine = TetrisEngine(
+            context = this, // Pass activity context for SoundPool
             boardWidth = 10,
             boardHeight = 20,
             callback = this,
@@ -163,6 +186,8 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
 
         // Set up game view with the same board size
         gameView.setBoardSize(10, 20)
+        // Provide the engine to the GameView for lifecycle management
+        gameView.setTetrisEngine(tetrisEngine)
 
         // Apply performance optimizations based on battery level
         applyPerformanceOptimizations()
@@ -208,9 +233,13 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
      * Start a new game
      */
     private fun startNewGame() {
+        Log.d("TetrisPerformance", "startNewGame: Starting new game")
+        val startTime = System.currentTimeMillis()
         isGameActive = true
         isPaused = false
         tetrisEngine.start()
+        val endTime = System.currentTimeMillis()
+        Log.d("TetrisPerformance", "startNewGame: tetrisEngine.start() took ${endTime - startTime} ms")
         timeHandler.post(timeRunnable)
     }
 
@@ -218,6 +247,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
      * Load a saved game
      */
     private fun loadSavedGame() {
+        Log.d("TetrisPerformance", "loadSavedGame: Loading saved game")
         lifecycleScope.launch {
             // Load game state from database
             val gameState = withContext(Dispatchers.IO) {
@@ -234,7 +264,11 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
                     updateTimeDisplay()
 
                     // Load the game state into the engine
+                    Log.d("TetrisPerformance", "loadSavedGame: Calling tetrisEngine.loadGameState()")
+                    val loadStartTime = System.currentTimeMillis()
                     tetrisEngine.loadGameState(gameState)
+                    val loadEndTime = System.currentTimeMillis()
+                    Log.d("TetrisPerformance", "loadSavedGame: tetrisEngine.loadGameState() took ${loadEndTime - loadStartTime} ms")
 
                     // Start the game
                     isGameActive = true
@@ -246,7 +280,11 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
                     )
 
                     if (!isPaused) {
+                        Log.d("TetrisPerformance", "loadSavedGame: Calling tetrisEngine.start()")
+                        val startEngineTime = System.currentTimeMillis()
                         tetrisEngine.start()
+                        val endEngineTime = System.currentTimeMillis()
+                        Log.d("TetrisPerformance", "loadSavedGame: tetrisEngine.start() took ${endEngineTime - startEngineTime} ms")
                         timeHandler.post(timeRunnable)
                     }
                 }
@@ -273,6 +311,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
             } else {
                 // Pause game
                 isPaused = true
+                Log.d("TetrisGraphics", "togglePause: Calling tetrisEngine.pause()")
                 tetrisEngine.pause()
                 pauseButton.setImageResource(R.drawable.ic_play)
                 timeHandler.removeCallbacks(timeRunnable)
@@ -529,6 +568,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
     }
 
     override fun onRender(board: Board, currentPiece: Piece?, nextPiece: Piece?, heldPiece: Piece?) {
+        Log.d("TetrisDebug", "GameActivity: onRender() - PRE gameView.updateGameState()")
         // Update game view with new state
         gameView.updateGameState(board, currentPiece, nextPiece, heldPiece)
         // gameView.invalidate() // Request redraw - updateGameState should call render which invalidates
@@ -591,9 +631,11 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
     //
 
     override fun onPause() {
+        Log.d("TetrisGraphics", "GameActivity: onPause BEGIN")
         super.onPause()
         if (isGameActive) {
             isPaused = true
+            Log.d("TetrisGraphics", "GameActivity: onPause - Calling tetrisEngine.pause()")
             tetrisEngine.pause()
             pauseButton.setImageResource(R.drawable.ic_play)
             timeHandler.removeCallbacks(timeRunnable)
@@ -602,6 +644,7 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
                 inputManager.setAccelerometerEnabled(false)
             }
         }
+        Log.d("TetrisGraphics", "GameActivity: onPause END")
     }
 
     override fun onResume() {
@@ -620,14 +663,17 @@ class GameActivity : AppCompatActivity(), TetrisEngine.TetrisCallback, InputMana
     }
 
     override fun onDestroy() {
+        Log.d("TetrisGraphics", "GameActivity: onDestroy BEGIN")
         super.onDestroy()
         if (isGameActive) {
+            Log.d("TetrisGraphics", "GameActivity: onDestroy - Calling tetrisEngine.stop()")
             tetrisEngine.stop() // Ensure engine is stopped
             saveGameState()     // Save game on destroy
         }
         inputManager.dispose() // Clean up InputManager resources
         timeHandler.removeCallbacks(timeRunnable)
         window.clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
+        Log.d("TetrisGraphics", "GameActivity: onDestroy END")
     }
 
     companion object {
