@@ -1,0 +1,64 @@
+# Docker ignore file for Android Tetris project
+
+# Git files
+.git
+.gitignore
+
+# Build artifacts
+build/
+*/build/
+app/build/
+.gradle/
+*.apk
+*.aab
+
+# IDE files
+.idea/
+.vscode/
+*.iml
+.DS_Store
+.settings/
+.project
+.classpath
+
+# Gradle wrapper jar (will be downloaded by container)
+gradle/wrapper/gradle-wrapper.jar
+
+# Local configuration files
+local.properties
+local.properties.bak
+
+# Android SDK (will be installed in container)
+android-sdk/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+/tmp/
+
+# OS files
+Thumbs.db
+.DS_Store
+
+# Backup files
+*.bak
+*.original
+
+# Reports and documentation build artifacts
+reports/
+resource_backups/
+
+# Scripts that are environment-specific (except Docker scripts)
+*.sh
+!docker-build.sh
+!docker-test.sh
+
+# Android specific
+proguard/
+lint-results*
+captures/
+.navigation/
+output.json

@@ -1,0 +1,68 @@
+version: '3.8'
+
+services:
+  # Development environment with interactive shell
+  tetris-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: tetris-dev
+    volumes:
+      - .:/workspace
+      - gradle-cache:/root/.gradle
+      - android-sdk-cache:/opt/android-sdk
+    working_dir: /workspace
+    environment:
+      - ANDROID_HOME=/opt/android-sdk
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+      - JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - GRADLE_USER_HOME=/root/.gradle
+    ports:
+      - "8080:8080"
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+  # Build service for automated builds
+  tetris-build:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tetris-build
+    volumes:
+      - .:/workspace
+      - gradle-cache:/root/.gradle
+      - android-sdk-cache:/opt/android-sdk
+    working_dir: /workspace
+    environment:
+      - ANDROID_HOME=/opt/android-sdk
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+      - JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - GRADLE_USER_HOME=/root/.gradle
+    command: ["./gradlew", "clean", "assembleDebug"]
+
+  # Legacy service name for backwards compatibility
+  tetris-android-dev:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: tetris-android-dev-legacy
+    volumes:
+      - .:/workspace
+      - gradle-cache:/root/.gradle
+      - android-sdk-cache:/opt/android-sdk
+    working_dir: /workspace
+    environment:
+      - ANDROID_HOME=/opt/android-sdk
+      - ANDROID_SDK_ROOT=/opt/android-sdk
+      - JAVA_HOME=/usr/lib/jvm/java-17-openjdk-amd64
+      - GRADLE_USER_HOME=/root/.gradle
+    ports:
+      - "8081:8080"
+    stdin_open: true
+    tty: true
+    command: /bin/bash
+
+volumes:
+  gradle-cache:
+  android-sdk-cache:
