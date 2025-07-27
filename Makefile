@@ -19,11 +19,11 @@ build:
 
 # Start interactive development environment
 dev:
-	docker-compose up tetris-dev
+	docker compose up tetris-dev
 
 # Build the Android APK
 build-apk:
-	docker-compose up tetris-build
+	docker compose up tetris-build
 
 # Test Docker setup
 test:
@@ -31,6 +31,6 @@ test:
 
 # Clean up Docker images and containers
 clean:
-	docker-compose down -v
+	docker compose down -v
 	docker rmi -f tetris-android-dev tetris-android 2>/dev/null || true
 	docker system prune -f

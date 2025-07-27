@@ -14,9 +14,9 @@ fi
 
 echo "✅ Docker is available"
 
-# Test if docker-compose is available
-if ! command -v docker-compose &> /dev/null; then
-    echo "❌ Docker Compose is not installed or not in PATH"
+# Test if docker compose is available
+if ! docker compose version &> /dev/null; then
+    echo "❌ Docker Compose is not available"
     exit 1
 fi
 
@@ -70,6 +70,6 @@ echo ""
 echo "🎉 All Docker tests passed!"
 echo ""
 echo "You can now use:"
-echo "  docker-compose up tetris-dev     # For development"
-echo "  docker-compose up tetris-build   # To build the APK"
+echo "  docker compose up tetris-dev     # For development"
+echo "  docker compose up tetris-build   # To build the APK"
 echo "  ./docker-build.sh               # Quick build script"

@@ -41,10 +41,10 @@ make clean
 1. **Build and run using Docker Compose:**
    ```bash
    # Development environment (interactive shell)
-   docker-compose up tetris-dev
+   docker compose up tetris-dev
    
    # Or build the APK directly
-   docker-compose up tetris-build
+   docker compose up tetris-build
    ```
 
 2. **Build using the provided script:**
